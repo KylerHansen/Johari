@@ -1,0 +1,57 @@
+﻿@page
+@model Johari.Pages.Clients.IndexModel
+
+@{
+    ViewData["Title"] = "Johari Adjectives";
+}
+
+<form method="post">
+
+    <div class="form-row">
+
+    </div>
+    <h3>Select 12 Positive Attributes </h3>
+    <br />
+    <div class="card-columns">
+        @{
+
+            for (int i = 0; i < Model.PosAdjectives.Count; i++)
+            {
+
+                <input asp-for="@Model.PosAdjectives[i].Value" type="hidden" />
+                <input asp-for="@Model.PosAdjectives[i].Text" type="hidden" />
+                <input id="checkbox" asp-for="@Model.PosAdjectives[i].Selected" /> @Model.PosAdjectives[i].Text
+                <br />
+
+            }
+        }
+    </div>
+
+    @*@if (Model.UserClient.Id != 0)
+        {*@
+    <input asp-for="@Model.UserClient.Id" type="hidden" />
+    @* } *@
+
+    <hr />
+
+    <h3>Select 5 Negative Attributes</h3>
+
+    <br />
+    <div class="card-columns">
+        @{
+            for (int i = 0; i < Model.NegAdjectives.Count; i++)
+            {
+                <input asp-for="@Model.NegAdjectives[i].Value" type="hidden" />
+                <input asp-for="@Model.NegAdjectives[i].Text" type="hidden" />
+                <input asp-for="@Model.NegAdjectives[i].Selected" id="checkbx"/> @Model.NegAdjectives[i].Text
+                <br />
+            }
+        }
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary">Submit</button>
+
+
+</form>
+
+
