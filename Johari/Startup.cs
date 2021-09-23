@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Infrastructure.Services;
+using ApplicationCore.Models;
 
 namespace Johari
 {
@@ -34,7 +35,7 @@ namespace Johari
                     options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext"),
                     sqlServerOptions => sqlServerOptions.MigrationsAssembly("Infrastructure")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

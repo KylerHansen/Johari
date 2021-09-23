@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 namespace ApplicationCore.Models
 {
     public class ApplicationUser : IdentityUser
-    {
-        public virtual Client Client { get; set; }
-        public virtual Friend Friend { get; set; }
+    {    
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [NotMapped]

@@ -9,13 +9,17 @@ namespace ApplicationCore.Models
     public class ClientResponse
     {
         [Key]
-        public int Id { get; set; }     
+        public int Id { get; set; }
+
+        public int AdjectiveId { get; set; }
+
+        public int ClientId { get; set; }
 
         [ForeignKey("AdjectiveId")]
-        public virtual Adjective AdjectiveId { get; set; }
+        public virtual Adjective Adjective { get; set; }
 
         [ForeignKey("ClientId")]
-        public virtual Client ClientId { get; set; }
+        public virtual Client Client { get; set; }
 
     }
 }

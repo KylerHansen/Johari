@@ -17,6 +17,8 @@ namespace ApplicationCore.Models
         [Required]
         public string HowLong { get; set; }
 
+        public int AspNetUsersId { get; set; }
+
         [ForeignKey("AspNetUsersId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
 

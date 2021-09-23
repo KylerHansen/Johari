@@ -48,7 +48,7 @@ namespace Johari.Pages.Clients
                 }
                 
                          
-                List<Adjective> AdjectiveList = new List<Adjective>();
+                List<Adjective> AdjectiveList = new();
                 AdjectiveList = (List<Adjective>)_unitofWork.Adjective.List();
 
                 ListOfPosAdjectives = new List<Adjective>();
@@ -107,7 +107,7 @@ namespace Johari.Pages.Clients
             {
                 if (Adjective.Selected)
                 {
-                    ClientResponse Response = new ClientResponse
+                    ClientResponse Response = new()
                     {
                         AdjectiveId = Int32.Parse(Adjective.Value),
                         ClientId = UserClient.Id
@@ -120,7 +120,7 @@ namespace Johari.Pages.Clients
             {
                 if (Adjective.Selected)
                 {
-                    ClientResponse Response = new ClientResponse
+                    ClientResponse Response = new()
                     {
                         AdjectiveId = Int32.Parse(Adjective.Value),
                         ClientId = UserClient.Id
