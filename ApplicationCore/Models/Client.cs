@@ -16,7 +16,7 @@ namespace ApplicationCore.Models
         [Required]
         public string Last_Name { get; set; }
 
-        public int AspNetUsersId { get; set; }  
+        public string AspNetUsersId { get; set; }  
 
         [Required]
         public DateTime Birthday { get; set; }

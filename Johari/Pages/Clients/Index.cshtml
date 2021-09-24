@@ -7,24 +7,21 @@
 
 <form method="post">
 
-    <div class="form-row">
-
-    </div>
+   
     <h3>Select 12 Positive Attributes </h3>
-    <br />
-    <div class="card-columns">
-        @{
+    <br/>
+    <div class="card-columns">        
+            @{
+                for (int i = 0; i < Model.PosAdjectives.Count; i++)
+                {
 
-            for (int i = 0; i < Model.PosAdjectives.Count; i++)
-            {
+                    <input asp-for="@Model.PosAdjectives[i].Value" type="hidden" />
+                    <input asp-for="@Model.PosAdjectives[i].Text" type="hidden" />
+                    <input id="checkbox" asp-for="@Model.PosAdjectives[i].Selected" /> @Model.PosAdjectives[i].Text
+                    <br />
 
-                <input asp-for="@Model.PosAdjectives[i].Value" type="hidden" />
-                <input asp-for="@Model.PosAdjectives[i].Text" type="hidden" />
-                <input id="checkbox" asp-for="@Model.PosAdjectives[i].Selected" /> @Model.PosAdjectives[i].Text
-                <br />
-
-            }
-        }
+                }
+            }        
     </div>
 
     @*@if (Model.UserClient.Id != 0)
@@ -32,11 +29,14 @@
     <input asp-for="@Model.UserClient.Id" type="hidden" />
     @* } *@
 
+<div class="m-lg-5">
     <hr />
+</div>
+    
 
     <h3>Select 5 Negative Attributes</h3>
 
-    <br />
+    <br/>
     <div class="card-columns">
         @{
             for (int i = 0; i < Model.NegAdjectives.Count; i++)
@@ -49,7 +49,10 @@
         }
     </div>
 
-    <button type="submit" class="btn btn-outline-primary">Submit</button>
+    <br/>
+    <div class="row justify-content-center m-lg-5">
+        <button type="submit" class="btn btn-outline-primary w-25">Submit</button>
+    </div>
 
 
 </form>

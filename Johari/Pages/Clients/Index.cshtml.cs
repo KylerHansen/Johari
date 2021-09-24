@@ -33,9 +33,7 @@ namespace Johari.Pages.Clients
 
 
         public IActionResult OnGet(int ? id)
-        {
-            id = 1;
-
+        {            
             UserClient = new Client();
 
             if (id != 0)
