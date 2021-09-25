@@ -9,14 +9,19 @@ namespace ApplicationCore.Models
     {
         [Key]
         public int Id{ get; set; }
-   
+
+        public int AdjectiveId { get; set; }
+        public int ClientId { get; set; }
+        public int FriendId { get; set; }
+
+
         [ForeignKey("AdjectiveId")]
-        public virtual Adjective AdjectiveId { get; set; }
+        public virtual Adjective Adjective { get; set; }
 
         [ForeignKey("ClientId")]
-        public virtual Client ClientId { get; set; }
+        public virtual Client Client { get; set; }
 
         [ForeignKey("FriendId")]
-        public virtual Friend FriendId { get; set; }
+        public virtual Friend Friend { get; set; }
     }
 }

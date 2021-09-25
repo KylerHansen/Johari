@@ -11,18 +11,20 @@ namespace ApplicationCore.Models
         public int Id { get; set; }
 
         [Required]
-        public string fName { get; set; }
+        public string First_Name { get; set; }
 
         [Required]
-        public string lName { get; set; }
+        public string Last_Name { get; set; }
+
+        public string AspNetUsersId { get; set; }  
+
+        [Required]
+        public DateTime Birthday { get; set; }
+
+        [Required]
+        public string Gender { get; set; }
 
         [ForeignKey("AspNetUsersId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
-
-        [Required]
-        public DateTime birthday { get; set; }
-
-        [Required]
-        public string gender { get; set; }
     }
 }

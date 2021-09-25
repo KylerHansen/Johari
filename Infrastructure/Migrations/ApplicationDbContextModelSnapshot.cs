@@ -48,22 +48,27 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("birthday")
+                    b.Property<string>("AspNetUsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("fName")
+                    b.Property<string>("First_Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("gender")
+                    b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("lName")
+                    b.Property<string>("Last_Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AspNetUsersId");
 
                     b.ToTable("Client");
                 });
@@ -83,6 +88,10 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AdjectiveId");
+
+                    b.HasIndex("ClientId");
+
                     b.ToTable("ClientResponse");
                 });
 
@@ -93,6 +102,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AspNetUsersId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("HowLong")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -101,10 +113,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AspNetUsersId");
 
                     b.ToTable("Friend");
                 });
@@ -126,6 +137,12 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdjectiveId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("FriendId");
 
                     b.ToTable("FriendResponse");
                 });
@@ -343,6 +360,70 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("ApplicationCore.Models.Client", b =>
+                {
+                    b.HasOne("ApplicationCore.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("AspNetUsersId");
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("ApplicationCore.Models.ClientResponse", b =>
+                {
+                    b.HasOne("ApplicationCore.Models.Adjective", "Adjective")
+                        .WithMany()
+                        .HasForeignKey("AdjectiveId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApplicationCore.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Adjective");
+
+                    b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("ApplicationCore.Models.Friend", b =>
+                {
+                    b.HasOne("ApplicationCore.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("AspNetUsersId");
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("ApplicationCore.Models.FriendResponse", b =>
+                {
+                    b.HasOne("ApplicationCore.Models.Adjective", "Adjective")
+                        .WithMany()
+                        .HasForeignKey("AdjectiveId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApplicationCore.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApplicationCore.Models.Friend", "Friend")
+                        .WithMany()
+                        .HasForeignKey("FriendId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Adjective");
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Friend");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

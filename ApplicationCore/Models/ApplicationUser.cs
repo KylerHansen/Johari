@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,9 @@ namespace ApplicationCore.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public virtual Client Client { get; set; }
-        public virtual Friend Friend { get; set; }
+        [Key]
+        public string Id { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [NotMapped]
