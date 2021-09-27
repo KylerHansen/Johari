@@ -23,7 +23,7 @@ namespace Johari.Pages.Clients
 
         [BindProperty]
         public IList<SelectListItem> NegAdjectives { get; set; }
-
+        
         public List<Adjective> ListOfPosAdjectives { get; set; }
 
         public List<Adjective> ListOfNegAdjectives { get; set; }
@@ -131,8 +131,8 @@ namespace Johari.Pages.Clients
             _unitofWork.Commit();
 
 
-            return RedirectToPage("./Index");
-            //return Page(); //send to submission confirmation page. 
+            return RedirectToPage("./SubmissionConfirmed");
+            //TODO: Need to pass the ClientId over to ./SubmissionConfirmed.
 
         }
     }

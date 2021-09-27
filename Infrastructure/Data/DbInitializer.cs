@@ -31,6 +31,18 @@ namespace Infrastructure.Data
                 new Adjective{Name="dependable", Definition="capable of being trusted or depended on", Type=1},
                 new Adjective{Name="dignified", Definition="showing or expressing dignity (the quality or state of being worthy, honored, or esteemed)", Type=1},
                 new Adjective{Name="helpful", Definition="of service or assistance", Type=1},
+                new Adjective{Name="energetic", Definition="operating with or marked by vigor or effect", Type=1},
+                new Adjective{Name="extroverted", Definition="possessing or arising from an outgoing and gregarious nature", Type=1},
+                new Adjective{Name="friendly", Definition="showing kindly interest and goodwill", Type=1},
+                new Adjective{Name="giving", Definition="affectionate and generous where one's feelings are concerned", Type=1},
+                new Adjective{Name="happy", Definition="showing or causing feelings of pleasure and enjoyment", Type=1},
+                new Adjective{Name="helpful", Definition="of service or assistance", Type=1},
+                new Adjective{Name="idealistic", Definition="having a strong belief in perfect standards and trying to achieve them, even when this is not realistic", Type=1},
+                new Adjective{Name="independent", Definition="confident and free to do things without needing help from other people", Type=1},
+                new Adjective{Name="ingenious", Definition="having a lot of clever new ideas and good at inventing things", Type=1},
+                new Adjective{Name="intelligent", Definition="good at learning, understanding and thinking in a logical way about things; showing this ability", Type=1},
+                new Adjective{Name="introverted", Definition="more interested in your own thoughts and feelings than in spending time with other people", Type=1},                          
+
                 new Adjective{Name="irrational", Definition="not based on, or not using, clear logical thought", Type=0},
                 new Adjective{Name="imperceptive", Definition="lacking in perception or insight", Type=0},
                 new Adjective{Name="loud", Definition="talking very loudly, too much and in a way that is annoying", Type=0},
@@ -41,6 +53,10 @@ namespace Infrastructure.Data
                 new Adjective{Name="glum", Definition="sad, quiet and unhappy", Type=0},
                 new Adjective{Name="vulgar", Definition="not having or showing good taste; not polite, pleasant or well behaved", Type=0},
                 new Adjective{Name="unhappy", Definition="not pleased or satisfied with somebody/something", Type=0},
+                new Adjective{Name="smug", Definition="looking or feeling too pleased about something you have done or achieved", Type=0},
+                new Adjective{Name="predictable", Definition="behaving or happening in a way that you would expect and therefore boring", Type=0},
+                new Adjective{Name="foolish", Definition="not showing good sense or judgement", Type=0},
+                new Adjective{Name="cowardly", Definition="not brave; not having the courage to do things that other people do not think are especially difficult", Type=0},
             };
 
             foreach (Adjective a in adjective)

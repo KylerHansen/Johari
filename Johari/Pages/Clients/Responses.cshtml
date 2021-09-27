@@ -1,0 +1,119 @@
+﻿@page
+@model Johari.Pages.Clients.IndexModel
+
+@{
+    ViewData["Title"] = "Johari Adjectives";
+}
+
+
+<div class="container">
+    <form method="post">
+        <h3 id="posCountTitle">Select 12 Positive Attributes - </h3>
+        <br />
+        <div class="card-columns">
+            @{
+                for (int i = 0; i < Model.PosAdjectives.Count; i++)
+                {
+                    
+                    <input asp-for="@Model.PosAdjectives[i].Value" type="hidden" />
+                    <input asp-for="@Model.PosAdjectives[i].Text" type="hidden" />
+                    <span class="expandClickAreaPos" title="@Model.ListOfPosAdjectives[i].Definition">
+                        <input asp-for="@Model.PosAdjectives[i].Selected" class="posAdj"/>
+                        @Model.PosAdjectives[i].Text
+                    </span>
+                    <br />
+                }
+            }
+        </div>
+
+        @*@if (Model.UserClient.Id != 0)
+            {*@
+        <input asp-for="@Model.UserClient.Id" type="hidden" />
+        @* } *@
+
+        <div class="m-lg-5">
+            <hr />
+        </div>
+
+
+        <h3 id="negCountTitle">Select 5 Negative Attributes</h3>
+
+        <br />
+        <div class="card-columns">
+            @{
+                for (int i = 0; i < Model.NegAdjectives.Count; i++)
+                {
+                    <input asp-for="@Model.NegAdjectives[i].Value" type="hidden" />
+                    <input asp-for="@Model.NegAdjectives[i].Text" type="hidden" />
+                    <span class="expandClickAreaNeg" title="@Model.ListOfNegAdjectives[i].Definition">
+                       <input asp-for="@Model.NegAdjectives[i].Selected" class="negAdj" />
+                        @Model.NegAdjectives[i].Text
+                    </span>
+                    <br />
+                }
+            }
+        </div>
+
+        <br />
+        <div class="row justify-content-center m-lg-5">
+            <button type="submit" class="btn btn-outline-primary w-25">Submit</button>
+        </div>
+
+    </form>
+
+    @section Scripts{ 
+    <script>
+
+        const positiveLimit = 12;
+        const negativeLimit = 5;
+        var posCount = 0;
+        var negCount = 0;
+
+        $("input.negAdj").on('change', function () {      
+                
+            if (this.checked == false) {
+                if (negCount > 0) {
+                    negCount--;
+                }
+            } else {
+                if (negCount < negativeLimit) {
+                    negCount++;
+                } else {
+                    this.checked = false;
+                }
+            }
+
+            changeNegTitle(negCount);
+
+        });
+
+        $("input.posAdj").on('change', function () {
+
+            if (this.checked == false) {
+                if (posCount > 0) {
+                    posCount--;
+                }
+            } else {
+                if (posCount < positiveLimit) {
+                    posCount++;
+                } else {
+                    this.checked = false;
+                }
+            }
+
+            changePosTitle(posCount);
+
+        });
+
+        function changeNegTitle(count) {
+            document.getElementById('negCountTitle').innerHTML = "Select 5 Negative Attributes - "+ count;
+        }
+
+        function changePosTitle(count) {
+            document.getElementById('posCountTitle').innerHTML = "Select 12 Positive Attributes - " + count;
+        }
+       
+
+    </script>
+    }
+</div>
