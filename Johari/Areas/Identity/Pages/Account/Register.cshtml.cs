@@ -104,7 +104,8 @@ namespace Johari.Areas.Identity.Pages.Account
                 if (!await _roleManager.RoleExistsAsync(SD.AdminRole))
                 {
                     _roleManager.CreateAsync(new IdentityRole(SD.AdminRole)).GetAwaiter().GetResult();                   
-                    _roleManager.CreateAsync(new IdentityRole(SD.ClientRole)).GetAwaiter().GetResult();                    
+                    _roleManager.CreateAsync(new IdentityRole(SD.ClientRole)).GetAwaiter().GetResult();
+                    _roleManager.CreateAsync(new IdentityRole(SD.FriendRole)).GetAwaiter().GetResult();
                 }
                 if (result.Succeeded)
                 //assign role to the user (from the form radio options available after the first manager is created)
@@ -112,6 +113,10 @@ namespace Johari.Areas.Identity.Pages.Account
                     if (role == SD.ClientRole)
                     {
                         await _userManager.AddToRoleAsync(user, SD.ClientRole);
+                    }
+                    else if(role == SD.FriendRole)
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.FriendRole);
                     }
                     else
                     {                                             
