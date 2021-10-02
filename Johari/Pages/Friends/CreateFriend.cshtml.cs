@@ -91,9 +91,7 @@ namespace Johari.Pages.Friends
             catch (Exception e)
             {
                 throw new Exception(e.Message);
-            }
-
-            //Maybe I should just pass in the client Id instead of the aspnet user id. 
+            }           
 
             int clientId = _unitofWork.Client.Get(c => c.AspNetUsersId == clientAspId).Id;
 
