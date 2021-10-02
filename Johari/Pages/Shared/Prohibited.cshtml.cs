@@ -8,9 +8,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Johari.Pages.Shared
 {
     public class ProhibitedModel : PageModel
-    {                     
-        public IActionResult OnGet()
-        {                     
+    {                
+        [BindProperty]
+        public string UrlPath { get; set; }
+        [BindProperty]
+        public string Reason { get; set; }
+        public IActionResult OnGet(string path, string reason)
+        {
+            UrlPath = path;
+            Reason = reason;
+
             return Page();
         }
     }

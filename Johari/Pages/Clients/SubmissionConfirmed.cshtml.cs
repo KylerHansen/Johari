@@ -28,12 +28,12 @@ namespace Johari.Pages.Clients
                 else
                 {
                     //Navigate Friend to Thank You page. 
-                    return Page();
+                    return RedirectToPage("/Friends/ThankYou");
                 }
             }
             else
             {
-                return RedirectToPage("/Shared/Prohibited");
+                return RedirectToPage("/Shared/Prohibited", new { path = "/Clients/SubmissionConfirmed", reason = "You are not signed in." });
             }
         }
     }

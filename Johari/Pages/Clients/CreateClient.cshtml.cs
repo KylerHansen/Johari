@@ -29,7 +29,7 @@ namespace Johari.Pages.Clients
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToPage("/Shared/Prohibited");
+                return RedirectToPage("/Shared/Prohibited", new { path = "/Clients/CreateClient", reason = "You are not signed in." });
             }           
 
 

@@ -52,28 +52,16 @@ namespace Johari.Pages.Friends
 
                 }
                 else
-                {                                        
-                    return RedirectToPage("/Shared/Prohibited");
+                {
+                    return NotFound();
                 }
             }
             else
             {
-                
-                string url = HttpContext.Request.GetEncodedUrl().ToString();
 
-                //ViewData["ReturnUrl"] = url;
-
-                HttpContext.Session.SetString("ReturnURL", url);
-                
-                //TODO: FIX URL GETTING PASSED TO PROHIBITED.
-                //Verify that Flow for Friend and Client Works
-                //Verfity that database is getting set properly. 
-
-                return RedirectToPage("/Shared/Prohibited");
+                return RedirectToPage("/Shared/Prohibited", new { path = "/Friends/CreateFriend", reason = "You are not signed in." });
 
             }
-
-            return NotFound();
         }
 
 

@@ -46,7 +46,7 @@ namespace Johari.Pages
 
                     if (friend == null)
                     {
-                        return RedirectToPage("/Friends/CreateFriend");
+                        return RedirectToPage("/Friends/EnterId");
                     }
                 }
                 else

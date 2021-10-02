@@ -4,30 +4,21 @@
     ViewData["Title"] = "Access Denied";
 }
 
-@using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor HttpContextAccessor
-@using Infrastructure.Services
 
 <div class="container text-center">
     <h2>Oop's you do not have permission to access this page.</h2>
     <hr />
     <div class="pb-1 pt-3 text-center">
-        <h3>Try logging in or creating an account.</h3>
+       <h4><span class="text-danger">Reason:</span> @Model.Reason</h4>
+        <h4>Try logging in or creating an account.</h4>
     </div>
 
     <div class="text-center pt-2">
-        @{ var t = HttpContextAccessor.HttpContext.Session.GetString("ReturnURL");} 
+
         <a class="btn btn-secondary btn-square"
-           asp-route-returnUrl="@{HttpContextAccessor.HttpContext.Session.GetString("ReturnURL");}"
+           asp-route-returnUrl="@Model.UrlPath"
            asp-area="Identity"
            asp-page="/Account/Login">Go To Login</a>
-
-        @*@{ var oooo = ViewData["ReturnUrl"];}
-
-        <a class="btn btn-secondary btn-square"
-           asp-route-returnUrl="@ViewData["ReturnUrl"]"
-           asp-area="Identity"
-           asp-page="/Account/Login">Go To Login</a>*@
 
     </div>
 

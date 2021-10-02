@@ -38,7 +38,7 @@ namespace Johari.Pages.Clients
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToPage("/Shared/Prohibited");
+                return RedirectToPage("/Shared/Prohibited", new { path = "/Clients/Responses", reason = "You are not signed in." });
             }
 
             UserClient = new Client();
@@ -59,7 +59,7 @@ namespace Johari.Pages.Clients
             }
             else
             { //Admins will get sent here should probably fix
-                return RedirectToPage("/Shared/Prohibited");
+                return NotFound();
             }
 
 

@@ -8,23 +8,29 @@
     <h2>Submission Confirmed</h2>
     <hr />
     <div class="pb-1 pt-3 text-center">
-        <h5>Next, send this link to your friends and family to get their responses:</h5>        
+        <h5>Next, send this link and Id to your friends and family to get their responses:</h5>
     </div>
     <div class="text-danger fst-italic pb-4 text-center">
-        <h8>*Note: They will need to create an Friends and Family Account*</h8>
-    </div>
+        <h8>*Note: They will need to create a Friends and Family Account*</h8>
+    </div>    
     <div class="card m-1 bg-white box-shadow text-center">
         <div class="card-body p-2">
-        <h6 id="urlPath"></h6>
+            <h6 id="urlPath"></h6>
         </div>
-    </div>   
+    </div>
+    <div class="card m-1 bg-white box-shadow text-center ">
+        <div class="card-body p-2">
+            <h6><span class="text-danger">Your Id:</span> @Model.userAspId</h6>
+        </div>
+    </div>    
 </div>
+
+
 
 <script>
     document.getElementById("urlPath").innerHTML =
         window.location.protocol + "//" +
         window.location.hostname + ":" +
         window.location.port +
-
-        "/Friends/CreateFriend?clientId=@Model.userAspId";
+        "/Friends/EnterId";
 </script>
