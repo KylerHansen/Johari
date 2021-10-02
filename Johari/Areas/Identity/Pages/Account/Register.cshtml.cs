@@ -100,6 +100,7 @@ namespace Johari.Areas.Identity.Pages.Account
                     PhoneNumber = Input.PhoneNumber
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                
                 //add the roles to the ASPNET Roles table if they do not exist yet
                 if (!await _roleManager.RoleExistsAsync(SD.AdminRole))
                 {
