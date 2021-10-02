@@ -1,0 +1,27 @@
+﻿@page
+@model Johari.Pages.Shared.ProhibitedModel
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+
+<div class="container text-center">
+    <h2>Oop's you do not have permission to access this page.</h2>
+    <hr />
+    <div class="pb-1 pt-3 text-center">
+       <h4><span class="text-danger">Reason:</span> @Model.Reason</h4>
+        <h4>Try logging in or creating an account.</h4>
+    </div>
+
+    <div class="text-center pt-2">
+
+        <a class="btn btn-secondary btn-square"
+           asp-route-returnUrl="@Model.UrlPath"
+           asp-area="Identity"
+           asp-page="/Account/Login">Go To Login</a>
+
+    </div>
+
+    <!--possibly add a return route to this link if possible asp-route-returnUrl=" return to page that sent us here."-->
+
+</div>

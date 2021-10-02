@@ -1,0 +1,41 @@
+﻿@page
+@model Johari.Pages.Friends.IndexModel
+@{
+    ViewData["Title"] = "Johari Relationship Questions";
+}
+
+<div class="row justify-content-center">   
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body px-lg-5 pt-4">
+                <div class="text-secondary text-center py-4"><h3><strong>Questions</strong></h3></div>
+                <section>
+                    <form method="post">   
+                            <input asp-for="@Model.clientAspId" type="hidden" />
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="userFriend.Relationship">What is your relationship to @Model.referredClient.FirstName?</label>
+                            <input asp-for="userFriend.Relationship" class="form-control" />
+                            <span asp-validation-for="userFriend.Relationship" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="userFriend.HowLong">How long have you known @Model.referredClient.FirstName?</label>
+                            <input asp-for="userFriend.HowLong" class="form-control" />
+                            <span asp-validation-for="userFriend.HowLong" class="text-danger"></span>
+                        </div>
+                        <div class="text-center">
+                            <div class="form-group">                                
+                                    <button type="submit" class="btn btn-secondary w-50">Continue...</button>                                
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

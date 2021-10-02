@@ -10,10 +10,10 @@
             <div class="card">
                 <div class="card-body px-lg-5 pt-4">
                     <form method="post" autocomplete="off" asp-route-returnUrl="@Model.ReturnUrl">
-                        <h3 class="col-12 text-success text-center py-4">
+                        <h3 class="col-12 text-secondary text-center py-4">
                             @if (User.IsInRole(SD.AdminRole))
                             {
-                <strong>Register an Account</strong> }
+                                <strong>Register an Account</strong> }
                             else
                             {
                 <strong>Sign Up</strong>}
@@ -49,14 +49,16 @@
                             <input type="password" asp-for="Input.ConfirmPassword" autocomplete="off" placeholder="ConfirmPassword" class="form-control" />
                             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                         </div>
-                        @if (User.IsInRole(SD.AdminRole))
-                        {
-            <div class="py-2">
-                <input type="radio" name="rdUserRole" value="@SD.ClientRole" /> @SD.ClientRole               
-                <input type="radio" name="rdUserRole" value="@SD.AdminRole" /> @SD.AdminRole
-            </div>}
-                        <div class="py-2">
-                            <button type="submit" class="btn btn-success form-control">Register</button>
+                       
+                        <div class="py-2 ml-2">
+                        <input type="radio" name="rdUserRole" value="@SD.ClientRole" /> @SD.ClientRole @*Consider Renaming this to Customer*@ 
+                         <br />
+                        <input type="radio" name="rdUserRole" value="@SD.FriendRole" /> Friends & Family
+                        @*<input type="radio" name="rdUserRole" value="@SD.AdminRole" /> @SD.AdminRole*@
+                        </div>
+                         
+                        <div class="text-center py-3 ">
+                            <button type="submit" class="btn btn-secondary w-50 form-control">Register</button>
                         </div>
                     </form>
                 </div>

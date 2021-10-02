@@ -30,6 +30,14 @@ namespace Johari
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            }
+            );
+
             services.AddRazorPages();
             services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext"),
@@ -91,7 +99,10 @@ namespace Johari
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 
@@ -99,6 +110,7 @@ namespace Johari
 
             app.UseAuthorization();
 
+            //May need to remove this to use routing. 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

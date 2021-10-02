@@ -1,15 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using Infrastructure.Services;
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Johari</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/CustomColors.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body class="search-background">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">Johari</a>@*<---AddLogoHere with image tag*@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -21,20 +25,38 @@
                         <li class="nav-item">
                             <a class="nav-link " asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-page="/Clients/Responses?id=1">Johari</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle href="#" id="navbarDropDown" data-toggle="dropdown">
-                                Admin
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item " asp-page="/Admin/JohariWindow">Johari Window</a>
-                                <a class="dropdown-item " asp-page="/Admin/Users/Index">Users</a>
-                                @*<a class="dropdown-item text-black" asp-page="/Admin/Roles/Index">Roles</a>*@
-                            </div>
-                        </li>
-                    </ul>
+                        @if (User.IsInRole(SD.ClientRole))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-page="/Clients/Responses">Personal Attributes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-page="/Clients/SubmissionConfirmed">My ID</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole(SD.FriendRole))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-page="/Friends/EnterId">Submit Response</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole(SD.AdminRole))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle href="#" id="navbarDropDown" data-toggle="dropdown">
+                                    Admin
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item " asp-page="/Admin/JohariWindow">Johari Window</a>
+                                    @*<a class="dropdown-item " asp-page="/Admin/Users/Index">Users</a>*@
+                                    @*<a class="dropdown-item text-black" asp-page="/Admin/Roles/Index">Roles</a>*@
+                                </div>
+                            </li>
+
+                        }
+                        </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>

@@ -1,0 +1,59 @@
+﻿@page
+@model Johari.Pages.Clients.CreateClientModel
+@{
+    ViewData["Title"] = "Johari Additional Details";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body px-lg-5 pt-4">
+                <div class="text-secondary text-center py-4"><h3><strong>Additional Questions</strong></h3></div>
+                <section>
+                    <form method="post">                    
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="@Model.birthday userClient.Birthday">What is your birthday?</label>
+                            <input asp-for="@Model.birthday" class="form-control" />
+                            <span asp-validation-for="@Model.birthday" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>What is your birth gender?</label>
+                            <div class="py-2 ml-2">
+                                <span onclick="validateForm()"><input id="rd_1" type="radio" name="rdUserGender" value="Male" /> Male </span>
+                                <br />
+                                <span onclick="validateForm()"><input id="rd_2" type="radio" name="rdUserGender" value="Female" /> Female </span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="form-group">
+                                <button id="submission" type="submit" class="btn btn-secondary w-50">Continue...</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var submit = this.document.getElementById("submission");
+    submit.disabled = true;
+
+    var r1 = this.document.getElementById("rd_1");
+    var r2 = this.document.getElementById("rd_2");    
+
+    function validateForm() {
+
+        if (r1.checked || r2.checked) {
+            submit.disabled = false;
+        } else {
+            submit.disable = true;
+        }
+    }
+
+
+</script>

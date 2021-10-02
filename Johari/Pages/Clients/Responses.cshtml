@@ -56,7 +56,7 @@
 
         <br />
         <div class="row justify-content-center m-lg-5">
-            <button type="submit" class="btn btn-outline-primary w-25">Submit</button>
+            <button id="submitResponses" type="submit" class="btn btn-outline-secondary w-25">Submit</button>
         </div>
 
     </form>
@@ -68,6 +68,7 @@
         const negativeLimit = 5;
         var posCount = 0;
         var negCount = 0;
+        this.document.getElementById('submitResponses').disabled = true;
 
         $("input.negAdj").on('change', function () {      
                 
@@ -84,6 +85,7 @@
             }
 
             changeNegTitle(negCount);
+            validateResponseAmount();
 
         });
 
@@ -102,6 +104,7 @@
             }
 
             changePosTitle(posCount);
+            validateResponseAmount();
 
         });
 
@@ -112,7 +115,14 @@
         function changePosTitle(count) {
             document.getElementById('posCountTitle').innerHTML = "Select 12 Positive Attributes - " + count;
         }
-       
+
+        function validateResponseAmount() {
+            if (posCount == positiveLimit && negCount == negativeLimit) {
+                this.document.getElementById('submitResponses').disabled = false;
+            } else {
+                this.document.getElementById('submitResponses').disabled = true;
+            }
+        }
 
     </script>
     }
