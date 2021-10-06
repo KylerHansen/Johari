@@ -36,7 +36,7 @@
         </div>
 
 
-        <h3 id="negCountTitle">Select 5 Negative Attributes</h3>
+        <h3 id="negCountTitle">Select 7 Negative Attributes</h3>
 
         <br />
         <div class="card-columns">
@@ -65,7 +65,7 @@
     <script>
 
         const positiveLimit = 12;
-        const negativeLimit = 5;
+        const negativeLimit = 7;
         var posCount = 0;
         var negCount = 0;
         this.document.getElementById('submitResponses').disabled = true;
@@ -109,7 +109,7 @@
         });
 
         function changeNegTitle(count) {
-            document.getElementById('negCountTitle').innerHTML = "Select 5 Negative Attributes - "+ count;
+            document.getElementById('negCountTitle').innerHTML = "Select 7 Negative Attributes - "+ count;
         }
 
         function changePosTitle(count) {
