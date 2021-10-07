@@ -49,8 +49,7 @@ namespace Johari.Pages.Clients
                 //get the current Users Client data
                 var claimsIdentity = (ClaimsIdentity)this.User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                UserClient = _unitofWork.Client.Get(c => c.AspNetUsersId == claim.Value);
-           
+                UserClient = _unitofWork.Client.Get(c => c.AspNetUsersId == claim.Value);           
             }
             else if(User.IsInRole(SD.FriendRole))                          
             {
@@ -59,6 +58,7 @@ namespace Johari.Pages.Clients
             }
             else
             { //Admins will get sent here should probably fix
+                //TODO: allow them to add more definitions and words. 
                 return NotFound();
             }
 
@@ -113,7 +113,7 @@ namespace Johari.Pages.Clients
                     clientResponses = (List<ClientResponse>)_unitofWork.ClientResponse.List(c => c.ClientId == UserClient.Id).ToList();
 
                     if (clientResponses.Count > 0)
-                    {        //Remove any previous responses.         
+                    {    //Remove any previous responses.         
                         _unitofWork.ClientResponse.Delete(clientResponses);
                     }
 
@@ -203,7 +203,17 @@ namespace Johari.Pages.Clients
                         _unitofWork.FriendResponse.Add(Response);
                     }
                 }
+
+                //Update Client Count
+                Client updateClient = _unitofWork.Client.Get(c => c.Id == clientId);
+                
+                updateClient.ResponseSubmissionCount += 1;
+
+                _unitofWork.Client.Update(updateClient);
+
+
             }
+
 
             _unitofWork.Commit();
 

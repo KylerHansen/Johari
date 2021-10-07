@@ -15,7 +15,7 @@
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="@Model.birthday userClient.Birthday">What is your birthday?</label>
-                            <input asp-for="@Model.birthday" class="form-control" />
+                            <input value="" type="date" asp-for="@Model.birthday" class="form-control" />
                             <span asp-validation-for="@Model.birthday" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -47,7 +47,7 @@
     var r2 = this.document.getElementById("rd_2");    
 
     function validateForm() {
-
+        
         if (r1.checked || r2.checked) {
             submit.disabled = false;
         } else {

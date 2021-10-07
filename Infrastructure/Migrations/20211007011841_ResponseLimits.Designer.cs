@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210927202034_Initial")]
-    partial class Initial
+    [Migration("20211007011841_ResponseLimits")]
+    partial class ResponseLimits
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,6 +67,12 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Last_Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ResponseLimit")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResponseSubmissionCount")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

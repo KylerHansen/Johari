@@ -18,11 +18,11 @@
             <h6 id="urlPath"></h6>
         </div>
     </div>
-    <div class="card m-1 bg-white box-shadow text-center ">
+    @*<div class="card m-1 bg-white box-shadow text-center ">
         <div class="card-body p-2">
             <h6><span class="text-danger">Your Id:</span> @Model.userAspId</h6>
         </div>
-    </div>    
+    </div>*@    
 </div>
 
 
@@ -32,5 +32,5 @@
         window.location.protocol + "//" +
         window.location.hostname + ":" +
         window.location.port +
-        "/Friends/EnterId";
+        "/Friends/EnterId?id=@Model.userAspId";
 </script>

@@ -18,7 +18,7 @@ namespace Johari.Pages.Clients
         {
             _unitofWork = unitofWork;
         }
-        
+             
         [BindProperty]
         public DateTime birthday { get; set; }              
 
@@ -55,6 +55,8 @@ namespace Johari.Pages.Clients
                 userClient.Last_Name = aspNetUser.LastName;
                 userClient.Gender = gender;
                 userClient.Birthday = birthday;
+                userClient.ResponseLimit = 4;
+                userClient.ResponseSubmissionCount = 0;
 
                 _unitofWork.Client.Add(userClient);
 

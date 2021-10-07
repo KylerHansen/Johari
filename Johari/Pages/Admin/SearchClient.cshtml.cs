@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Johari.Pages.Admin
 {
-    public class IndexModel : PageModel
+    public class SearchClientModel : PageModel
     {
-        public void OnGet(int id)
+        public void OnGet()
         {
         }
     }
