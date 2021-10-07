@@ -20,24 +20,67 @@ namespace Johari.Pages.Friends
         }
         [BindProperty]
         public string RefferedClientId { get; set; }
-        public IActionResult OnGet()
+        public IActionResult OnGet(string id)
         {
-            if (User.Identity.IsAuthenticated)
+            //TODO: THIS NEEDS TO BE CLEANED UP.
+            if (User.Identity.IsAuthenticated && id != null)
             {
                 if (User.IsInRole(SD.FriendRole))
-                {                  
-                    return Page();
+                {
+                    //get current user                    
+                    var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+                    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                    string friendAspNetId = claim.Value;                  
+
+                    try
+                    {    //if the client id is valid
+                        Client checkClient = _unitofWork.Client.Get(c => c.AspNetUsersId == id);
+                        if (checkClient != null)
+                        {   //if the friend has an account already
+                            Friend checkFriend = _unitofWork.Friend.Get(f => f.AspNetUsersId == friendAspNetId);
+                            if (checkFriend != null)
+                            {   //if the friend has made a submission for the client with the given id already
+                                FriendResponse checkSubmission = _unitofWork.FriendResponse.Get(r => r.ClientId == checkClient.Id && r.FriendId == checkFriend.Id);
+                                if(checkSubmission != null)
+                                {
+                                    //redirect to submission made
+                                    return RedirectToPage("/Friends/ThankYou");
+                                }
+                                else
+                                {
+                                    if (checkClient.ResponseSubmissionCount < checkClient.ResponseLimit)
+                                    {
+                                        //proceed to response page. 
+                                        return RedirectToPage("/Clients/Responses", new { id = checkClient.Id });
+                                    }
+                                    return RedirectToPage("/Friends/ResponseLimitReached");
+                                }
+                            }
+                            else
+                            {
+                                RefferedClientId = id;
+                                return Page();
+                            }
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        return NotFound();
+                    }                    
+                   
                 }
                 else
                 {
-                    return RedirectToPage("/Shared/Prohibited", new { path = "/Friends/EnterId", reason = "Must be logged in a friends & family account." });
+                    return RedirectToPage("/Shared/Prohibited", new { path = "/Friends/EnterId?id="+id, reason = "Must be logged in a friends & family account." });
                 }
             }
             else
-            {
-                
-
-                return RedirectToPage("/Shared/Prohibited", new { path = "/Friends/EnterId", reason = "Must be logged in a friends & family account." });
+            {                
+                return RedirectToPage("/Shared/Prohibited", new { path = "/Friends/EnterId?id="+id, reason = "Must be logged in a friends & family account." });
 
             }
         }
@@ -54,15 +97,23 @@ namespace Johari.Pages.Friends
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             string aspNetId = claim.Value;
 
-            Friend friend = _unitofWork.Friend.Get(f => f.AspNetUsersId == aspNetId);
-            int refferedClientId = _unitofWork.Client.Get(c => c.AspNetUsersId == RefferedClientId).Id;
+            try
+            {
+                Friend friend = _unitofWork.Friend.Get(f => f.AspNetUsersId == aspNetId);
+                int refferedClientId = _unitofWork.Client.Get(c => c.AspNetUsersId == RefferedClientId).Id;
 
-            if (friend == null)
+                if (friend == null)
+                {
+                    return RedirectToPage("/Friends/CreateFriend", new { clientId = RefferedClientId });
+                }
+
+                return RedirectToPage("/Clients/Responses", new { id = refferedClientId });
+                }
+            catch (Exception e)
             {
                 return RedirectToPage("/Friends/CreateFriend", new { clientId = RefferedClientId });
             }
 
-            return RedirectToPage("/Clients/Responses", new { id = refferedClientId });
         }
     }
 }

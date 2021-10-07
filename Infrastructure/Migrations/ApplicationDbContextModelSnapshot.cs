@@ -66,6 +66,12 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ResponseLimit")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResponseSubmissionCount")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AspNetUsersId");

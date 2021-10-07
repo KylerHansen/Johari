@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/CustomColors.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css" />
 </head>
 <body class="search-background">
     <header>
@@ -22,9 +23,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-page="/Index">Home</a>
-                        </li>
+                        @if (User.IsInRole(SD.ClientRole) || User.IsInRole(SD.AdminRole) || User.IsInRole(SD.FriendRole))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-page="/Index">Home</a>
+                            </li>
+                        }
                         @if (User.IsInRole(SD.ClientRole))
                         {
                             <li class="nav-item">
@@ -46,17 +50,20 @@
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle href="#" id="navbarDropDown" data-toggle="dropdown">
-                                    Admin
+                                    Settings
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item " asp-page="/Admin/JohariWindow">Johari Window</a>
-                                    @*<a class="dropdown-item " asp-page="/Admin/Users/Index">Users</a>*@
-                                    @*<a class="dropdown-item text-black" asp-page="/Admin/Roles/Index">Roles</a>*@
+                                    <a class="dropdown-item " asp-page="/Admin/Users/Index">Users</a>
+                                    <a class="dropdown-item text-black" asp-page="/Admin/Roles/Index">Roles</a>
                                 </div>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link " asp-page="/Admin/SearchClient">Clients</a>
+                            </li>
+
                         }
-                        </ul>
+                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
