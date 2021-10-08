@@ -1,7 +1,7 @@
 ﻿var dataTable;
 
 $(document).ready(function () {
-    loadList();
+    loadList();    
 });
 
 function loadList() {
@@ -12,17 +12,21 @@ function loadList() {
             "datatype": "json"
         },
         "columns": [
-            { data: "First_Name", width: "20%" },
-            { data: "Last_Name", width: "20%" },
-            { data: "ResponseLimit", width: "10%" },
-            { data: "ResponseSubmissionCount", width: "10%" },           
+            { data: "first_Name", width: "20%" },
+            { data: "last_Name", width: "20%" },            
             {
-                data: "Id", width: "10%",
+                data: "responseLimit", width: "10%",
                 "render": function (data) {
-                    return `<div class="text-center">
+                    return `${data}`;
+                }
+            },
+            { data: "responseSubmissionCount", width: "10%" },           
+            {
+                data: "id", width: "40%",
+                "render": function (data) {
+                    return `<div class="text-center">                            
                             <a href="/Admin/JohariWindow?id=${data}"
-                            class ="btn btn-secondary style="cursor:pointer; width=100px;"> Create Window</a>
-                           
+                            class ="btn btn-secondary style="cursor:pointer; width=100px;"> Create Window</a>                           
                     </div>`;
                 }
             }
@@ -33,3 +37,5 @@ function loadList() {
         "width": "100%"
     });
 }
+
+
