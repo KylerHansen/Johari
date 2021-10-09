@@ -18,10 +18,23 @@ namespace Johari.Pages.Admin
             _unitofWork = unitofWork;
         }
 
-        Client client { get; set; }        
         List<ClientResponse> clientResponses { get; set; }
         List<FriendResponse> friendResponses { get; set; }
-        List<Adjective> adjectivesList { get; set; }
+
+        
+        [BindProperty]
+        public List<Adjective> adjectivesList { get; set; }
+                
+        [BindProperty]
+        public Client client { get; set; }
+        [BindProperty]
+        public Dictionary<string, int> row0column0 { get; set; }
+        [BindProperty]
+        public Dictionary<string, int> row0column1 { get; set; }
+        [BindProperty]
+        public Dictionary<string, int> row1column0 { get; set; }
+        [BindProperty]
+        public Dictionary<string, int> row1column1 { get; set; }
 
 
         public IActionResult OnGet(int id)
@@ -39,64 +52,62 @@ namespace Johari.Pages.Admin
                 friendResponses = _unitofWork.FriendResponse.List(r => r.ClientId == client.Id).ToList();
                 adjectivesList = _unitofWork.Adjective.List().ToList();
 
-                var query = from clientRe in clientResponses
-                            join adj in adjectivesList on clientRe.AdjectiveId equals adj.Id
-                            join fr in friendResponses on clientRe.AdjectiveId equals fr.AdjectiveId                           
-                            group adj by adj.Name into grp
+                var query = from adj in adjectivesList
+                            join cr in clientResponses on adj.Id equals cr.AdjectiveId
+                            join fr in friendResponses on cr.AdjectiveId equals fr.AdjectiveId                           
+                            group adj by adj.Name into grp                            
                             select new { key = grp.Key, Total = grp.Count()};
 
-                foreach(var v in query)
-                {
-                    System.Diagnostics.Debug.WriteLine($"{v.key+":"}{v.Total}");
+                row0column0 = new Dictionary<string, int>();
+                row0column1 = new Dictionary<string, int>();
+                row1column0 = new Dictionary<string, int>();
+                row1column1 = new Dictionary<string, int>();
+
+                foreach (var v in query)
+                {                   
+                    row0column0.Add(v.key,v.Total);                    
                 }
+
+                var query2 = from adj in adjectivesList                             
+                             join fr in friendResponses on adj.Id equals fr.AdjectiveId                            
+                             group adj by adj.Name into grp
+                             select new { key = grp.Key, Total = grp.Count() };
+
+                var query3 = from adj in adjectivesList
+                             join cr in clientResponses on adj.Id equals cr.AdjectiveId
+                             group adj by adj.Name into grp
+                             select new { key = grp.Key, Total = grp.Count() };
+               
+
+
+                foreach (var v in query2)
+                {                                       
+                    if (!row0column0.ContainsKey(v.key))
+                    {
+                        row0column1.Add(v.key, v.Total);
+                    }                    
+                }
+
+
+                foreach (var v in query3)
+                {
+
+                    if (!row0column0.ContainsKey(v.key))
+                    {
+                        row1column0.Add(v.key, v.Total);
+                    }
+                }
+
+                foreach( var adj in adjectivesList)
+                {
+                    string name = adj.Name;
+                    if(!row0column0.ContainsKey(name) && !row0column1.ContainsKey(name) && !row1column0.ContainsKey(name))
+                    {
+                        row1column1.Add(name, 0);
+                    }
+                }
+     
             }
-
-            //Select AdjName, Count(AdjName)
-            //FROM Adjective a
-            //LEFT JOIN ClientResponse cr
-            //ON cr.adjectiveID = a.id
-            //LEFT JOIN FriendResponse fr
-            //ON cr.AdjectiveId = fr.AdjectiveId
-            //WHERE cr.ClientID like 'ClientIdstring'
-            //AND fr.AdjectiveId IS NULL
-            //GROUP BY AdjName
-
-
-            //--Hidden(bottom left corner).Adjectives that are only on client's list and not on any of the friend’s lists (Count = 1) 
-            //Select AdjName, Count(AdjName)
-            //FROM Adjective a
-            //LEFT JOIN ClientResponse cr
-            //ON cr.adjectiveID = a.id
-            //LEFT JOIN FriendResponse fr
-            //ON cr.AdjectiveId = fr.AdjectiveId
-            //WHERE cr.ClientID like 'ClientIdstring'
-            //AND fr.AdjectiveId IS NOT NULL
-            //GROUP BY AdjName
-
-            //--Blind(upper right corner).Words that are only on your family's and friend's list but not on your own(Count > 1 AND ClientID is null)
-            //Select AdjName, Count(AdjName)
-            //FROM Adjective a
-            //LEFT JOIN FriendResponse fr
-            //ON fr.adjectiveID = a.id
-            //LEFT JOIN ClientResponse cr
-            //ON cr.AdjectiveId = fr.AdjectiveId
-            //WHERE fr.ClientID like 'ClientIdstring'
-            //AND cr.AdjectiveId IS NULL
-            //GROUP BY AdjName
-
-            //--Unknown: (bottom right corner). "UNSHARED WORDS"(Count = 0)
-            //Select AdjName, Count(AdjName)
-            //FROM Adjective a
-            //LEFT JOIN ClientResponse cr
-            //ON cr.adjectiveID = a.id
-            //LEFT JOIN FriendResponse fr
-            //ON a.Id = fr.AdjectiveId
-            //WHERE cr.ClientID like 'ClientIdstring'
-            //AND a.Id IS NOT NULL
-            //GROUP BY AdjName
-
-
-
 
             return Page();
         }

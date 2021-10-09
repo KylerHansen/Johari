@@ -3,22 +3,212 @@
 @{
 }
 
-<div class="text-center">
-    <h3>FirstName, LastName</h3>
+<div class="text-center display-4">
+    @Model.client.First_Name @Model.client.Last_Name
 </div>
 
+<div class="text-center p-3">
+    <h6><span class="text-black-50 p-2">1 Match </span>  |  <span class=" p-2"> 2 Matches</span>  |  <span class="text-black p-2 fw-bolder">3+ Matches</span></h6>
+</div>
 <div class="row justify-content-center">
-    <table class="table-bordered text-center">         
+    <table class="table-bordered text-center">
         <tbody>
             <tr>
-                <td class="p-2">Open Adjective Matches Go Here</td>
-                <td class="p-2">Blind Adjective Matches go Here</td>
+                <td class="p-2">
+                    <div class="text-right align-text-top text-secondary fw-bold" title="Information about you that both you & others know.">Open Self</div>
+                    <div>
+                        @{
+                            int i = 0;
+                            foreach (var item in Model.row0column0)
+                            {
+                                switch (item.Value)
+                                {
+                                    case 1:
+                                        if (i == 0)
+                                        {
+                                            <span class="text-black-50">@item.Key </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-black-50">, @item.Key </span>
+                                        }
+                                        break;
+                                    case 2:
+                                        if (i == 0)
+                                        {
+                                            <span class="text-black">@item.Key</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-black">, @item.Key</span>
+                                        }
+                                        break;
+                                    default:
+                                        if (i == 0)
+                                        {
+                                            <span class="text-black fw-bolder">@item.Key</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-black fw-bolder">, @item.Key</span>
+                                        }
+                                        break;
+                                }
+                                i++;
+                                if (i % 4 == 0)
+                                {
+                                    <br />
+                                }
+                            }
+                        }
+                    </div>
+                </td>
+                <td class="p-2">
+                    <div class="text-right align-text-top text-secondary fw-bold" title="Information about you that you don't know but others do know">Blind Self</div>
+                    <div>
+                        @{
+                            i = 0;
+                            foreach (var item in Model.row0column1)
+                            {
+                                switch (item.Value)
+                                {
+                                    case 1:
+                                        if (i == 0)
+                                        {
+                                            <span class="text-black-50">@item.Key </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-black-50">, @item.Key </span>
+                                        }
+                                        break;
+                                    case 2:
+                                        if (i == 0)
+                                        {
+                                            <span class="text-black">@item.Key</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-black">, @item.Key</span>
+                                        }
+                                        break;
+                                    default:
+                                        if (i == 0)
+                                        {
+                                            <span class="text-black fw-bolder">@item.Key</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-black fw-bolder">, @item.Key</span>
+                                        }
+                                        break;
+                                }
+                                i++;
+                                if (i % 4 == 0)
+                                {
+                                    <br />
+                                }
+                            }
+                        }
+                    </div>
+                </td>
             </tr>
             <tr>
-                <td class="p-2">Hidden Adjective Matches go Here</td>
-                <td class="p-2">Unknown Adjectives go here</td>
+                <td class="p-2">
+                    <div class="text-right align-text-top text-secondary fw-bold" title="Information about you that you know but others don't know.'">Hidden Self</div>
+                    <div>
+                        @{
+                            i = 0;
+                            foreach (var item in Model.row1column0)
+                            {
+                                if (i == 0)
+                                {
+                                    <span class="text-black-50">@item.Key </span>
+                                }
+                                else
+                                {
+                                    <span class="text-black-50">, @item.Key </span>
+                                }
+                                i++;
+                                if (i % 4 == 0)
+                                {
+                                    <br />
+                                }
+                            }
+                        }
+                    </div>
+                </td>
+                <td class="p-2">
+                    <div class="text-right align-text-top text-secondary fw-bold" title="Information about you that neither you nor others know.">Unknown Self</div>
+                    <div>
+                        @{
+                            i = 0;
+                            foreach (var item in Model.row1column1)
+                            {
+                                if (i == 0)
+                                {
+                                    <span class="text-black-50">@item.Key </span>
+                                }
+                                else
+                                {
+                                    <span class="text-black-50">, @item.Key </span>
+                                }
+                                i++;
+                                if (i % 4 == 0)
+                                {
+                                    <br />
+                                }
+                            }
+                        }
+                    </div>
+                </td>
             </tr>
+        </tbody>
+    </table>
+</div>
 
-        </tbody>   
+
+<br />
+
+<div class="display-5 pt-5">
+    Definitions
+</div>
+
+<hr/>
+
+<div class="row justify-content-center pt-2">
+    <table class="table-borderless">
+        <thead>
+        <th>
+            Positive Adjectives
+        </th>
+        <th>
+            Negative Adjectives
+        </th>
+        </thead>
+        <tbody>
+        <td>
+            @foreach (var adj in Model.adjectivesList)
+            {
+                if (adj.Type == 1)
+                {
+                    <div class="p-2">
+                        <span class="">@adj.Name :</span> <span class="text-black-50"> @adj.Definition </span> <br />
+                    </div>
+                }
+            }
+        </td>
+        <td>        
+            @foreach (var adj in Model.adjectivesList)
+            {
+                if (adj.Type == 0)
+                {
+                    <div class="p-2">
+                        <span class="">@adj.Name :</span> <span class="text-black-50"> @adj.Definition </span> <br />
+                    </div>
+                }
+            }
+        </td>      
+        </tbody>
     </table>
 </div>

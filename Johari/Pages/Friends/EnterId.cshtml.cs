@@ -22,67 +22,61 @@ namespace Johari.Pages.Friends
         public string RefferedClientId { get; set; }
         public IActionResult OnGet(string id)
         {
-            //TODO: THIS NEEDS TO BE CLEANED UP.
-            if (User.Identity.IsAuthenticated && id != null)
+            if(id == null)
             {
-                if (User.IsInRole(SD.FriendRole))
-                {
-                    //get current user                    
-                    var claimsIdentity = (ClaimsIdentity)this.User.Identity;
-                    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                    string friendAspNetId = claim.Value;                  
+                return NotFound();
+            }
+            //TODO: THIS NEEDS TO BE CLEANED UP.
+            if (!User.Identity.IsAuthenticated || !User.IsInRole(SD.FriendRole))
+            {
+                return RedirectToPage("/Shared/Prohibited", new { path = "/Friends/EnterId?id=" + id, reason = "Must be logged in a friends & family account." });
+            }
+          
+            //get current user                    
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            string friendAspNetId = claim.Value;                  
 
-                    try
-                    {    //if the client id is valid
-                        Client checkClient = _unitofWork.Client.Get(c => c.AspNetUsersId == id);
-                        if (checkClient != null)
-                        {   //if the friend has an account already
-                            Friend checkFriend = _unitofWork.Friend.Get(f => f.AspNetUsersId == friendAspNetId);
-                            if (checkFriend != null)
-                            {   //if the friend has made a submission for the client with the given id already
-                                FriendResponse checkSubmission = _unitofWork.FriendResponse.Get(r => r.ClientId == checkClient.Id && r.FriendId == checkFriend.Id);
-                                if(checkSubmission != null)
-                                {
-                                    //redirect to submission made
-                                    return RedirectToPage("/Friends/ThankYou");
-                                }
-                                else
-                                {
-                                    if (checkClient.ResponseSubmissionCount < checkClient.ResponseLimit)
-                                    {
-                                        //proceed to response page. 
-                                        return RedirectToPage("/Clients/Responses", new { id = checkClient.Id });
-                                    }
-                                    return RedirectToPage("/Friends/ResponseLimitReached");
-                                }
-                            }
-                            else
-                            {
-                                RefferedClientId = id;
-                                return Page();
-                            }
+            try
+            {    //if the client id is valid
+                Client checkClient = _unitofWork.Client.Get(c => c.AspNetUsersId == id);
+                if (checkClient != null)
+                {   //if the friend has an account already
+                    Friend checkFriend = _unitofWork.Friend.Get(f => f.AspNetUsersId == friendAspNetId);
+                    if (checkFriend != null)
+                    {   //if the friend has made a submission for the client with the given id already
+                        FriendResponse checkSubmission = _unitofWork.FriendResponse.Get(r => r.ClientId == checkClient.Id && r.FriendId == checkFriend.Id);
+                        if(checkSubmission != null)
+                        {
+                            //redirect to submission made
+                            return RedirectToPage("/Friends/ThankYou");
                         }
                         else
                         {
-                            return NotFound();
+                            if (checkClient.ResponseSubmissionCount < checkClient.ResponseLimit)
+                            {
+                                //proceed to response page. 
+                                return RedirectToPage("/Clients/Responses", new { id = checkClient.Id });
+                            }
+                            return RedirectToPage("/Friends/ResponseLimitReached");
                         }
                     }
-                    catch (Exception e)
+                    else
                     {
-                        return NotFound();
-                    }                    
-                   
+                        RefferedClientId = id;
+                        return Page();
+                    }
                 }
                 else
                 {
-                    return RedirectToPage("/Shared/Prohibited", new { path = "/Friends/EnterId?id="+id, reason = "Must be logged in a friends & family account." });
+                    return NotFound();
                 }
             }
-            else
-            {                
-                return RedirectToPage("/Shared/Prohibited", new { path = "/Friends/EnterId?id="+id, reason = "Must be logged in a friends & family account." });
-
-            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }                    
+                         
         }
 
         public IActionResult OnPost()
