@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using ApplicationCore.Models;
 using ApplicationCore.Interfaces;
 
-namespace Johari.Pages.Admin.User
+namespace Johari.Pages.Admin.Users
 {
     public class IndexModel : PageModel
     {

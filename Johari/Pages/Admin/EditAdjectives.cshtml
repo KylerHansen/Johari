@@ -1,0 +1,82 @@
+﻿@page
+@model Johari.Pages.Admin.EditAdjectivesModel
+@{
+    ViewData["Title"] = "Client Search";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body px-lg-5 pt-4">
+                <div class="text-secondary text-center py-4"><h3><strong>Adjectives List</strong></h3></div>
+                <hr />
+                <section>
+                    <form method="post" class="pb-4">
+                        <div class="text-center pt-4 fw-bold text-black-50">
+                            Add New Adjective To List
+                        </div>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="@Model.adjective.Name"> New Adjective:</label>
+                            <input asp-for="@Model.adjective.Name" class="form-control w-25" id="word" />
+                            <span asp-validation-for="@Model.adjective.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Type:</label>
+                            <br />
+                            <input type="radio" name="rdType" value="1" id="rd1"/> Positive
+                            <input type="radio" name="rdType" value="0" id="rd2"/> Negative
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.adjective.Definition">Definition:</label>
+                            <input asp-for="@Model.adjective.Definition" class="form-control" id="def" onclick="validate()" />
+                            <span asp-validation-for="@Model.adjective.Definition" class="text-danger"></span>
+                        </div>
+                        <div class="text-center">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-secondary w-25" id="sub">Add New</button>
+                            </div>
+                        </div>
+                    </form>
+                    <table id="DT_load" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Type
+                                </th>
+                                <th>
+                                    Adjective
+                                </th>
+                                <th>
+                                    Definition
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/EditAdjectives.js"></script>
+    <script>
+        this.document.getElementById("sub").disabled = true;
+        document.getElementById("def").value = "";
+        document.getElementById('word').value = "";
+
+        function validate() {
+            if (document.getElementById("rd1").checked || document.getElementById("rd2").checked) {
+                this.document.getElementById("sub").disabled = false;
+            }
+            else {
+                this.document.getElementById("sub").disabled = true;
+            }
+            
+        }
+    </script>
+}
