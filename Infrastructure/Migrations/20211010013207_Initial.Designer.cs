@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211007011841_ResponseLimits")]
-    partial class ResponseLimits
+    [Migration("20211010013207_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,6 +73,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("ResponseSubmissionCount")
                         .HasColumnType("int");
+
+                    b.Property<bool>("hasResponded")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

@@ -179,6 +179,9 @@ namespace Infrastructure.Migrations
                     First_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Last_Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AspNetUsersId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ResponseLimit = table.Column<int>(type: "int", nullable: false),
+                    ResponseSubmissionCount = table.Column<int>(type: "int", nullable: false),
+                    hasResponded = table.Column<bool>(type: "bit", nullable: false),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },

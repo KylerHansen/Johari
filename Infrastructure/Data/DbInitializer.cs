@@ -83,7 +83,7 @@ namespace Infrastructure.Data
             new Adjective{Name="hostile",Definition="aggressive or unfriendly and ready to argue or fight",Type=0},
             new Adjective{Name="needy",Definition="not confident, and needing a lot of love and emotional support from other people",Type=0},
             new Adjective{Name="ignorant",Definition="not having or showing much knowledge or information about things; not educated",Type=0},
-            new Adjective{Name="blasÃ©",Definition="not impressed, excited or worried about something, because you have seen or experienced it many times before",Type=0},
+            new Adjective{Name="blase",Definition="not impressed, excited or worried about something, because you have seen or experienced it many times before",Type=0},
             new Adjective{Name="embarrassed",Definition="shy, uncomfortable or ashamed, especially in a social situation",Type=0},
             new Adjective{Name="insensitive",Definition="not realizing or caring how other people feel, and therefore likely to hurt or offend them",Type=0},
             new Adjective{Name="dispassionate",Definition="not influenced by emotion",Type=0},
