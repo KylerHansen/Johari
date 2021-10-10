@@ -50,8 +50,8 @@ namespace Johari
 
             services.AddScoped<IUnitofWork, UnitofWork>();
 
-            // services.AddMvc(options => options.EnableEndpointRouting = false); //disabled end point routing see 61-64 is commented out.
-            //Look into this, I can't remember why we disabled EndPointRouting. It doesn't fully work if its uncommented.
+            services.AddMvc(options => options.EnableEndpointRouting = false); //disabled end point routing see 61-64 is commented out.
+            //this is done so we can use the api routing for the datatables. 
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -110,11 +110,13 @@ namespace Johari
 
             app.UseAuthorization();
 
-            //May need to remove this to use routing. 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-            });
+            app.UseMvc();  //and implement this.
+
+            //Comment this out so we can use api for on get. 
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapRazorPages();
+            //});
         }
     }
 }

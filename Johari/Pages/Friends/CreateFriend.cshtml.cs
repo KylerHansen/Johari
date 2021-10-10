@@ -93,10 +93,17 @@ namespace Johari.Pages.Friends
                 throw new Exception(e.Message);
             }           
 
-            int clientId = _unitofWork.Client.Get(c => c.AspNetUsersId == clientAspId).Id;
+            Client client = _unitofWork.Client.Get(c => c.AspNetUsersId == clientAspId);
 
+            if(client.ResponseSubmissionCount < client.ResponseLimit)
+            {
+                return RedirectToPage("/Clients/Responses", new { id = client.Id});
+            }
+            else
+            {
+                return RedirectToPage("/Friends/ResponseLimitReached");
+            }
 
-            return RedirectToPage("/Clients/Responses", new { id = clientId});
         }
     }
 }

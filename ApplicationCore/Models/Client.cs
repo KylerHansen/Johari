@@ -22,6 +22,8 @@ namespace ApplicationCore.Models
 
         public int ResponseSubmissionCount { get; set; }
 
+        public bool hasResponded { get; set; }
+
         [Required]
         public DateTime Birthday { get; set; }
 

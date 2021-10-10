@@ -1,7 +1,7 @@
 ﻿var dataTable;
 
 $(document).ready(function () {
-    loadList();
+    loadList();    
 });
 
 function loadList() {
@@ -12,17 +12,28 @@ function loadList() {
             "datatype": "json"
         },
         "columns": [
-            { data: "First_Name", width: "20%" },
-            { data: "Last_Name", width: "20%" },
-            { data: "ResponseLimit", width: "10%" },
-            { data: "ResponseSubmissionCount", width: "10%" },           
+            { data: "first_Name", width: "20%" },
+            { data: "last_Name", width: "20%" },
+            { data: "hasResponded", width: "10%" },
             {
-                data: "Id", width: "10%",
+                data: "responseLimit", width: "10%",
+                "render": function (data) {
+                    return `${data}`;
+                }
+            },
+            { data: "responseSubmissionCount", width: "10%" },           
+            {
+                data: "id", width: "30%",
                 "render": function (data) {
                     return `<div class="text-center">
-                            <a href="/Admin/JohariWindow?id=${data}"
-                            class ="btn btn-secondary style="cursor:pointer; width=100px;"> Create Window</a>
-                           
+                            <div class="pb-1" title="Create Johari Window">
+                                <a href="/Admin/JohariWindow?id=${data}"
+                                class ="btn btn-secondary w-100" style="cursor:pointer;"; "> Create</a>
+                            </div>
+                            <div title="Resets all responses of client and friends">
+                            <a href="/Admin/ResetResponses?id=${data}"
+                            class ="btn btn-danger w-100 " style="cursor:pointer; "> Reset</a>
+                            </div>
                     </div>`;
                 }
             }
@@ -33,3 +44,5 @@ function loadList() {
         "width": "100%"
     });
 }
+
+

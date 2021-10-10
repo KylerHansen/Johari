@@ -1,10 +1,10 @@
 ﻿@page
-@model Johari.Pages.Admin.User.IndexModel
+@model Johari.Pages.Admin.Users.IndexModel
 @{
 }
 
 <div class="border backgroundWhite container">
-    <div class="row">
+    <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">User List</h2>
         </div>
@@ -13,8 +13,7 @@
         </div>
     </div>
     <br /><br />
-    <p class="hidden" id="success">@Model.Success.ToString()</p>
-    <p class="hidden" id="message">@Model.Message</p>
+
     <table class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
@@ -73,7 +72,8 @@
                         </td>
                         <td>
                             <a class="btn btn-outline-success" asp-page="/Admin/Users/Update" asp-route-id="@user.Id">Update</a>
-                            <a class="btn btn-outline-danger" asp-page="/Admin/Users/Delete" asp-route-id="@user.Id">Delete</a>
+                            @*<a class="btn btn-outline-danger" asp-page="/Admin/Users/Delete" asp-route-id="@user.Id">Delete</a>*@
+                            @*Not implemented yet*@
                         </td>
                     </tr>
                 }
@@ -82,13 +82,15 @@
         </tbody>
     </table>
 </div>
+
+<p style="display:none;" id="success">@Model.Success.ToString()</p>
+<p class="hidden" id="message">@Model.Message</p>
+
 @section Scripts{
     <script>
         function alertFunc() {
             var success = $("#success").html()
             var message = $("#message").html();
-            console.log(success);
-            console.log(message);
             if (success == "True") {
                 toastr.success(message);
             };

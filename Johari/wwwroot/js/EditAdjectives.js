@@ -7,24 +7,30 @@ $(document).ready(function () {
 function loadList() {
     dataTable = $('#DT_load').DataTable({
         "ajax": {
-            "url": "/api/client/",
+            "url": "/api/adjective/",
             "type": "GET",
             "datatype": "json"
         },
-        "columns": [
-            { "data": "firstName", "autoWidth": true },
-            { data: "lastName" },
-            { data: "email" },
-            { data: "phoneNumber" },
+        "columns": [           
             {
-                data: "id", width: "40%",
+                data: "type", width: "10%",
+                "render": function (data) {
+                    if (data == 0) {
+                        return `Negative`;
+                    }
+
+                    return `Positive`;
+                }
+            },
+            { data: "name", width: "20%" },
+            { data: "definition", width: "60%" },
+            {
+                data: "id", width: "10%",
                 "render": function (data) {
                     return `<div class="text-center">
-                            <a href="/Admin/Clients/Upsert?id=${data}"
-                            class ="btn btn-success text-white style="cursor:pointer; width=100px;"> <i class="far fa-edit"></i>Edit</a>
-                            <a href="/Admin/ClientWindow/JohariWindow?id=${data}"
-                            class ="btn btn-primary text-white style="cursor:pointer; width=100px;"> <i class="far fa-solid fa-hourglass"></i>&nbsp;Run Johari Window</a>
-                            </div>`;
+                          <a onClick=Delete('/api/adjective/'+${data})
+                            class ="text-danger" style="cursor:pointer; width=100px;"> <span class="material-icons md-48 ">delete_outline</span></a>
+                    </div>`;
 
                 }
             }
@@ -36,8 +42,7 @@ function loadList() {
     });
 }
 
-function Delete(url) {
-    //Sweet alert
+function Delete(url) { 
     swal({
         title: "Are you sure you want to delete?",
         text: "You will not be able to restore this data!",
