@@ -45,11 +45,16 @@ namespace Johari.Pages.Clients
             
 
             if (id == null && User.IsInRole(SD.ClientRole))
-            {                                
+            {                                       
                 //get the current Users Client data
                 var claimsIdentity = (ClaimsIdentity)this.User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                UserClient = _unitofWork.Client.Get(c => c.AspNetUsersId == claim.Value);           
+                UserClient = _unitofWork.Client.Get(c => c.AspNetUsersId == claim.Value); 
+                
+                if(UserClient.hasResponded == true)
+                {
+                    return RedirectToPage("./SubmissionConfirmed");
+                }
             }
             else if(User.IsInRole(SD.FriendRole))                          
             {
@@ -57,8 +62,7 @@ namespace Johari.Pages.Clients
                 UserClient = _unitofWork.Client.Get(c => c.Id == id);                
             }
             else
-            { //Admins will get sent here should probably fix
-                //TODO: allow them to add more definitions and words. 
+            {               
                 return NotFound();
             }
 
@@ -92,7 +96,7 @@ namespace Johari.Pages.Clients
 
             NegAdjectives = ListOfNegAdjectives.ToList<Adjective>()
                 .Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString() })
-                .ToList<SelectListItem>();
+                .ToList<SelectListItem>();           
 
             return Page();
         }
@@ -147,8 +151,15 @@ namespace Johari.Pages.Clients
                         _unitofWork.ClientResponse.Add(Response);
                     }
                 }
-            
-            }else if (User.IsInRole(SD.FriendRole))
+
+
+                //Update Client Response               
+                Client person = _unitofWork.Client.Get(c => c.Id == UserClient.Id);
+                person.hasResponded = true;
+                _unitofWork.Client.Update(person);
+
+            }
+            else if (User.IsInRole(SD.FriendRole))
             {                                                
                 //get the current User Id which is friend id
                 var claimsIdentity = (ClaimsIdentity)this.User.Identity;

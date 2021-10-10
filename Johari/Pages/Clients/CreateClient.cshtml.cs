@@ -57,6 +57,7 @@ namespace Johari.Pages.Clients
                 userClient.Birthday = birthday;
                 userClient.ResponseLimit = 4;
                 userClient.ResponseSubmissionCount = 0;
+                userClient.hasResponded = false;
 
                 _unitofWork.Client.Add(userClient);
 
