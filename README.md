@@ -1,0 +1,1 @@
+This was created as one of my senior projects. The stack is C# using ASP.NET Core. It’s an application that lets you answer questions about yourself, then invite others to do the same. This completes the Johari Window, a psychological assessment tool created by Joseph Luft and Harrington Ingham in 1955.
